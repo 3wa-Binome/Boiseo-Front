@@ -1,0 +1,18 @@
+@use './_variables' as vars;
+@use './atoms/logo';
+@use "sass:color";
+
+// Reset basics
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Body basic styles
+body {
+    font-family: vars.$font-family;
+    color: vars.$text-color;
+    line-height: 1.6;
+    background-color: #fafaf8;
+}
