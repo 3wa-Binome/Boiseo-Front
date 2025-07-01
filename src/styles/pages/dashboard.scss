@@ -1,0 +1,208 @@
+@use '../_variables' as vars;
+$sidebar-width: 220px;
+$navbar-height: 64px;
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #fafafa;
+  margin-left: $sidebar-width;
+  margin-top: $navbar-height;
+  min-height: calc(100vh - $navbar-height);
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 2rem 0;
+    text-align: center;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 1rem;
+
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .category-card {
+      background-color: vars.$card-bg;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      img {
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+      }
+
+      .card-text {
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        p {
+          margin: 0;
+          color: #6b7280;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  .chart {
+    display: flex;
+    gap: 10%;
+  }
+
+  .chart-container {
+    background-color: vars.$card-bg;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  .stat-card {
+    background-color: vars.$card-bg;
+    border-radius: vars.$card-radius;
+    padding: 1.5rem;
+    box-shadow: vars.$card-shadow;
+    text-align: center;
+    color: vars.$text-color;
+
+    .icon {
+      font-size: 1.8rem;
+      color: vars.$accent-color;
+      margin-bottom: 0.5rem;
+    }
+
+    .value {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .label {
+      font-size: 0.875rem;
+      color: vars.$muted-text;
+    }
+  }
+}
+
+.recent-sales {
+  background-color: vars.$card-bg;
+  border-radius: vars.$card-radius;
+  box-shadow: vars.$card-shadow;
+  overflow-x: auto;
+  padding: 1.5rem;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid vars.$table-border;
+    }
+
+    th {
+      color: vars.$muted-text;
+      font-weight: 600;
+    }
+
+    td.status {
+      color: vars.$success-color;
+      font-weight: bold;
+    }
+
+    td.action {
+      text-align: right;
+
+      .btn-detail {
+        background-color: vars.$primary-color;
+        color: #fff;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.8rem;
+        border-radius: 6px;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// Responsive : adapte les marges, paddings et graphiques
+@media (max-width: 900px) {
+  .dashboard-container {
+    margin-left: 0;
+    margin-top: $navbar-height;
+    padding: 1rem;
+  }
+  .chart {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: stretch;
+  }
+  .chart-container {
+    max-width: 100%;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-container {
+    padding: 0.5rem;
+    h1 {
+      font-size: 1.3rem;
+      margin: 1rem 0;
+    }
+    .cards-grid {
+      padding: 0;
+      gap: 1rem;
+    }
+    .chart-container {
+      padding: 0.5rem;
+      margin-top: 1rem;
+    }
+  }
+}

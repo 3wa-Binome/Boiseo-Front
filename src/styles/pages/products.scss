@@ -1,0 +1,120 @@
+$sidebar-width: 220px;
+$navbar-height: 64px;
+$primary: #1976d2;
+$accent: #49adeb;
+$bg-light: #f7fafd;
+$shadow: 0 4px 16px rgba(0,0,0,0.08);
+$shadow-hover: 0 8px 32px rgba(73, 173, 235, 0.18);
+
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding: 2.5rem 1rem;
+  width: 100%;
+  max-width: 1300px;
+  margin: 70px auto auto auto;
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+}
+
+.product-card {
+  background: linear-gradient(135deg, #fff 80%, #e3f2fd 100%);
+  border-radius: 20px;
+  box-shadow: $shadow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  transition: box-shadow 0.25s, transform 0.22s, background 0.3s;
+  cursor: pointer;
+  border: 1px solid #e3eaf3;
+
+  &:hover {
+    box-shadow: $shadow-hover;
+    transform: translateY(-6px) scale(1.035);
+    background: linear-gradient(135deg, #e3f2fd 60%, #fff 100%);
+  }
+
+  img {
+    width: 90%;
+    max-width: 220px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 2px 8px rgba(73,173,235,0.10);
+    background: #f4f8fb;
+  }
+
+  .product-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: $primary;
+    margin-bottom: 0.6rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+
+  .product-materials {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .product-percent {
+    font-size: 0.95rem;
+    color: $accent;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 0.3rem;
+  }
+
+  .product-percent-graph {
+    width: 220px;
+    max-width: 100%;
+    margin: 0.7rem auto 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $bg-light;
+    border-radius: 16px;
+    box-shadow: 0 1px 8px rgba(73,173,235,0.10);
+    padding: 1.1rem 0.7rem;
+    min-height: 120px;
+  }
+
+  @media (max-width: 900px) {
+    padding: 1.2rem 0.7rem 1rem 0.7rem;
+
+    img {
+      height: 140px;
+    }
+    .product-percent-graph {
+      width: 160px;
+      padding: 0.7rem 0.3rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 1rem 0.3rem 0.7rem 0.3rem;
+
+    img {
+      height: 110px;
+    }
+    .product-percent-graph {
+      width: 120px;
+      padding: 0.4rem 0.1rem;
+    }
+  }
+}
