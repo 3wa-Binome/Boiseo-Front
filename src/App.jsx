@@ -7,6 +7,7 @@ import Materials from "./components/pages/Materials.jsx";
 import './styles/main.scss';
 import './styles/pages/dashboard.scss';
 import './styles/pages/products.scss';
+import './styles/pages/materials.scss';
 import './styles/organisms/navigations.scss';
 import './styles/organisms/navBar.scss';
 

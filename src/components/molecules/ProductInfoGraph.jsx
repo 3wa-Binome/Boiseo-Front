@@ -1,5 +1,6 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 import { materialsData } from '../../data/productsData';
+import MaterialLink from "../atoms/MaterialLink.jsx";
 
 export default function ProductInfoGraph({ materials }) {
     // Associer la couleur à chaque matériau
@@ -7,7 +8,7 @@ export default function ProductInfoGraph({ materials }) {
         const ref = materialsData.find(m => m.name === mat.name);
         return {
             value: mat.percent,
-            label: String(mat.name),
+            label: <MaterialLink name={String(mat.name)} />,
             color: ref?.color || '#cccccc',
         };
     });
