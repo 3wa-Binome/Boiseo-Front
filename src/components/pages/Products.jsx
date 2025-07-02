@@ -1,10 +1,18 @@
+import { useParams } from "react-router-dom";
+import productsData from "../../data/productsData.js";
 import ProductCard from "../organisms/ProductCard";
-import products from "../../data/productsData";
 
-export default function Etageres() {
+export default function Products() {
+    const { type } = useParams();
+    const category = productsData.categories[type];
+
+    if (!category) {
+        return <p>Type de produit inconnu.</p>;
+    }
+
     return (
         <div className="product-grid">
-            {products.allShelf.map((product, idx) => (
+            {category.products.map((product, idx) => (
                 <ProductCard
                     key={idx}
                     title={product.title}
