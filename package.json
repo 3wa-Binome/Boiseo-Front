@@ -20,8 +20,10 @@
     "axios": "^1.7.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-nice-avatar": "^1.5.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
+    "react-router-guards": "^1.0.2",
     "sass": "^1.86.3"
   },
   "devDependencies": {
