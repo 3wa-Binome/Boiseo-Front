@@ -1,26 +1,46 @@
 import { useParams } from "react-router-dom";
-import productsData from "../../data/productsData.js";
 import ProductCard from "../organisms/ProductCard";
+import { useState, useEffect } from "react";
+import { fetchProductsByCategory } from "../../api/productApi";
 
 export default function Products() {
-    const { type } = useParams();
-    const category = productsData.categories[type];
+    const [products, setProducts] = useState([]);
+    const { id } = useParams();
+    const [isLoading, setIsLoading] = useState(true);
 
-    if (!category) {
-        return <p>Type de produit inconnu.</p>;
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const response = await fetchProductsByCategory(id);
+            if (response && response.data) {
+                setProducts(response.data);
+            }
+            console.log("Produits récupérés :", response);
+            setIsLoading(false);
+        };
+
+        fetchProducts();
+    }, [id]);
+
+    if (isLoading) {
+        return <p>Chargement des produits...</p>;
     }
 
     return (
         <div className="product-grid">
-            {category.products.map((product, idx) => (
-                <ProductCard
-                    key={idx}
-                    title={product.title}
-                    image={product.image}
-                    materials={product.materials}
-                    percent={product.percent}
-                />
-            ))}
+            {
+            console.log("Produits affichés :", products)}{
+            products.length === 0 ? (
+                <p>Aucun produit trouvé pour cette catégorie.</p>
+            ) : (
+                products.map((product) => (
+                    <ProductCard
+                        key={`product-${product.id}`}
+                        title={product.name}
+                        image={product.pictures && product.pictures.length > 0 ? product.pictures[0] : null}
+                        materials={product.productsMaterials}
+                    />
+                ))
+            )}
         </div>
     );
 }

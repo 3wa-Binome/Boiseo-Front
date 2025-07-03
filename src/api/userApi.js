@@ -9,7 +9,7 @@ export const fetchUserById = async (user_id) => {
         if (user_id) {
             const response = await axios.get(`${API_URL}/users/${user_id}`)
             const user = response.data
-            return user
+            return user.data
         } else {
             throw new Error("Erreur lors de la récupération de l'utilisateur")
         }
@@ -54,31 +54,19 @@ export const updateUser = async (user) => {
 }
 
 export const loginAPI = async (email, password) => {
-    try {
-        const response = await axios.post(`${API_URL}/auth/login`, { email, password })
-        console.log(response)
-        const user = response.data
-        return user;
-    } catch (err) {
-        console.error("Erreur de connexion :", err);
-        throw err;
-    }
+    const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+    return response.data.data;
 };
 
 export const logoutAPI = async () => {
-    const response = await axios.post(`${API_URL}/auth/logout`)
+    const response = await axios.get(`${API_URL}/auth/logout`)
     console.log(response)
     return response;
 };
 
 export const checkAuth = async () => {
-    try {
         const response = await axios.get(`${API_URL}/auth/me`)
         console.log(response)
-        const user = response.data
+        const user = response.data.data
         return user;
-    } catch (err) {
-        console.error("Erreur de connexion :", err);
-        throw err;
-    }
 }

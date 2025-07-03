@@ -1,27 +1,26 @@
 import { create } from 'zustand'
-import { checkAuth, loginAPI, logoutAPI } from '../api/userApi';
+import {checkAuth, createUser, loginAPI, logoutAPI} from '../api/userApi';
 
-export const useAuthStore = create<IAuthState>((set) => ({
+export const authStore = create((set) => ({
     user: null,
     isAuthenticated : false,
+    isLoading: true,
     // Connexion
     login: async (email, password) => {
         try {
             const user = await loginAPI(email, password);
             set({ user, isAuthenticated: true });
         } catch (error) {
-            console.error("Erreur de connexion: ", error);
-            throw error.message;
+            throw error;
         }
     },
     // Déconnexion
-    logout: () => {
+    logout: async () => {
 		try {
-			logoutAPI();
+			await logoutAPI();
 			set({ user: null, isAuthenticated: false });
 		} catch (error) {
-            console.error("Erreur lors de la déconnexion: ", error);
-            throw new Error(error.message);
+            throw error;
 		}
 
     },
@@ -31,18 +30,16 @@ export const useAuthStore = create<IAuthState>((set) => ({
             const newUser = { name, email, password };
             await createUser(newUser);
         } catch (error) {
-            console.error("Erreur lors de l'inscription: ", error);
-            throw new Error(error.message);
+            throw error;
         }
     },
 	checkAuth: async () => {
 		try {
 			const user = await checkAuth()
-			set({ user, isAuthenticated: true });
+			set({ user, isAuthenticated: true, isLoading: false });
 		} catch (error) {
-			console.error("Erreur lors de la vérification de connexion: ", error);
-			set({ user: null, isAuthenticated: false })
-            throw new Error(error.message);
+			set({ user: null, isAuthenticated: false, isLoading: false });
+            throw error;
 		}
 	}
 }))

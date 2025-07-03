@@ -1,11 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { authStore } from "../../store/authStore.js";
 
 export default function Logout() {
     const navigate = useNavigate();
+    const logout = authStore(state => state.logout);
+
     useEffect(() => {
-        localStorage.removeItem("auth");
+        logout();
         navigate("/login");
-    }, [navigate]);
+    }, [logout, navigate]);
     return <p>Déconnexion...</p>;
 }

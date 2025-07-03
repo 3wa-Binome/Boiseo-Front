@@ -1,22 +1,36 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { authStore } from "../../store/authStore.js";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [error, setError] = useState('');
     const navigate = useNavigate();
+    const login = authStore(state => state.login);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Simule une authentification
-        if (email === "test@mail.com" && password === "password") {
-            localStorage.setItem("auth", "true");
-            localStorage.setItem("user_email", email);
-            localStorage.setItem("user_name", "Test User");
+        setError('');
+        try {
+            await login(email, password);
             navigate("/");
-        } else {
-            setError("Identifiants invalides");
+        } catch (error) {
+            console.error("Erreur de connexion: ", error);
+            if (error.response && error.response.data) {
+                // Affiche la chaîne directement si c’en est une
+                if (typeof error.response.data === "string") {
+                    setError(error.response.data);
+                } else if (error.response.data.message) {
+                    setError(error.response.data.message);
+                } else {
+                    setError(JSON.stringify(error.response.data));
+                }
+            } else if (error.message) {
+                setError(error.message);
+            } else {
+                setError("Erreur de connexion, veuillez réessayer plus tard.");
+            }
         }
     };
 
@@ -39,8 +53,8 @@ export default function Login() {
                     required
                 />
                 <button type="submit">Se connecter</button>
-                {error && <p className="error">{error}</p>}
             </form>
+            {error && <p className="error">{error}</p>}
             <p style={{ marginTop: "1rem", textAlign: "center" }}>
                 Pas encore de compte ?{" "}
                 <Link to="/register" className="register-link">
