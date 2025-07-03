@@ -24,7 +24,8 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.2",
     "react-router-guards": "^1.0.2",
-    "sass": "^1.86.3"
+    "sass": "^1.86.3",
+    "zustand": "^5.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
