@@ -6,7 +6,7 @@ export default function PrivateRoute({ children }) {
     const isLoading = authStore(state => state.isLoading);
 
     if (isLoading) {
-        return <div>Chargement...</div>;
+        return <div className="auth-page loader">Chargement... Démarrage du serveur</div>;
     }
     return isAuth ? children : <Navigate to="/login" replace />;
 }
