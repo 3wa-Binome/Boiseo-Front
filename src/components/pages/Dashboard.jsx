@@ -22,7 +22,6 @@ export default function Dashboard() {
     useEffect( () => {
         const fetchData = async () => {
             const datas = await fetchUserById(user.id)
-            console.log(datas);
             setData(datas);
             setCategoryNames(datas.categories.map(category => category.name));
             setCategoryCounts(datas.categories.map(category => category.productCount));

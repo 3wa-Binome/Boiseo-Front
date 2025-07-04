@@ -19,7 +19,6 @@ export default function Profile() {
     useEffect(() => {
         const fetchUser = async () => {
             const response = await fetchUserById(user.id)
-            console.log("response fetchUserById", response)
             setEmail(response.email)
             setName(response.name)
         }

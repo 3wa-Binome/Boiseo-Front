@@ -23,12 +23,10 @@ const Navigations = () => {
         return <div>Chargement...</div>;
     }
 
-    // Fermer le menu au clic sur un lien (optionnel)
     const handleLinkClick = () => setOpen(false);
 
     return (
         <>
-            {/* Bouton hamburger visible sur mobile */}
             <button
                 className="hamburger"
                 aria-label="Ouvrir le menu"
@@ -63,9 +61,11 @@ const Navigations = () => {
                             </div>
                         </Link>
                     ))}
+                    <Link to="/ajouter/categorie/" className="add-btn">
+                        + Nouvelle catégorie
+                    </Link>
                 </div>
             </div>
-            {/* Overlay pour fermer le menu en cliquant à côté */}
             {open && <div className="sidebar-overlay" onClick={() => setOpen(false)} />}
         </>
     );

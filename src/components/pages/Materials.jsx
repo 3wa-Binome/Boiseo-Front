@@ -13,8 +13,7 @@ export default function Materials() {
         const fetchMaterial = async () => {
             try {
                 const response = await fetchMaterialById(id);
-                console.log("Matériau récupéré :", response);
-                
+
                 if (response && response.data) {
                     setMaterial(response.data);
                 } else {

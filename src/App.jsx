@@ -13,10 +13,12 @@ import './styles/pages/dashboard.scss';
 import './styles/pages/products.scss';
 import './styles/pages/materials.scss';
 import './styles/pages/auth.scss';
+import './styles/pages/formulaireAjout.scss';
 import './styles/organisms/navigations.scss';
 import './styles/organisms/navBar.scss';
 import { authStore } from "./store/authStore.js";
 import { useEffect } from "react";
+import FormulaireAjout from "./components/pages/FormulaireAjout.jsx";
 
 const App = () => {
     const checkAuth = authStore(state => state.checkAuth);
@@ -37,6 +39,24 @@ const App = () => {
                         <PrivateRoute>
                             <HeaderTemplate />
                             <Dashboard />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/ajouter/product/:type/:categoryId"
+                    element={
+                        <PrivateRoute>
+                            <HeaderTemplate />
+                            <FormulaireAjout />
+                        </PrivateRoute>
+                    }
+                />
+                <Route
+                    path="/ajouter/:type/:categoryId?"
+                    element={
+                        <PrivateRoute>
+                            <HeaderTemplate />
+                            <FormulaireAjout />
                         </PrivateRoute>
                     }
                 />

@@ -1,0 +1,108 @@
+@use '../atoms/addButton';
+
+.formulaire-ajout {
+  max-width: 400px;
+  margin: 3rem auto;
+  padding: 2rem 2.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2e7d32;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+      color: #333;
+
+      input[type="text"],
+      input[type="number"],
+      input[type="url"],
+      textarea,
+      select {
+        margin-top: 0.5rem;
+        padding: 0.7rem 1rem;
+        border: 1px solid #cfd8dc;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border 0.2s;
+        resize: none;
+
+        &:focus {
+          border-color: #2e7d32;
+          outline: none;
+        }
+      }
+
+      textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+    }
+
+    fieldset {
+      border: 1px solid #cfd8dc;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      background: #f9fbe7;
+
+      legend {
+        font-size: 1.1rem;
+        color: #2e7d32;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      button[type="button"] {
+        background: #e0f2f1;
+        color: #00695c;
+        border: none;
+        border-radius: 4px;
+        padding: 0.3rem 0.8rem;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        cursor: pointer;
+        transition: background 0.2s;
+
+        &:hover {
+          background: #b2dfdb;
+        }
+      }
+
+      div {
+        align-items: center;
+      }
+    }
+
+    button[type="submit"] {
+      @extend .add-btn;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+  }
+
+  p {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 1.05rem;
+    color: #2e7d32;
+    font-weight: 500;
+
+    &[data-error="true"] {
+      color: #c62828;
+    }
+  }
+}
