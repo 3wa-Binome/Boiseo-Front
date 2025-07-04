@@ -1,12 +1,97 @@
-# React + Vite
+# Boiseo-Front
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Boiseo-Front est une application web de gestion de produits et de matériaux, développée en React. Elle propose une interface utilisateur moderne avec authentification, tableau de bord, gestion des profils, produits, matériaux, et plus encore.
 
-Currently, two official plugins are available:
+## Fonctionnalités principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Authentification** : Connexion, inscription, déconnexion, routes privées.
+- **Tableau de bord** : Vue d’ensemble personnalisée pour chaque utilisateur.
+- **Navigation responsive** : Sidebar avec menu hamburger sur mobile, navbar fixe.
+- **Gestion des produits** : Liste, détails, catégories, actions sur les produits.
+- **Gestion des matériaux** : Consultation par nom de matériau.
+- **Profil utilisateur** : Affichage et modification des informations personnelles.
+- **Design moderne** : Utilisation de SCSS, responsive design, avatars personnalisés.
 
-## Expanding the ESLint configuration
+## Structure du projet
+boiseo-front--/
+├── public/
+├── src/
+│   ├── api/                # Appels API (utilisateur, produits, etc.)
+│   ├── assets/             # Images et icônes
+│   ├── components/
+│   │   ├── atoms/          # Composants UI de base
+│   │   ├── molecules/      # Composants composés
+│   │   ├── organisms/      # Composants complexes (Navbar, Sidebar, etc.)
+│   │   ├── pages/          # Pages principales (Dashboard, Login, etc.)
+│   │   └── templates/      # Templates de pages
+│   ├── data/               # Données statiques ou mocks
+│   ├── store/              # State management (Zustand)
+│   ├── styles/             # Fichiers SCSS
+│   ├── App.jsx             # Composant racine
+│   └── main.jsx            # Point d’entrée React
+├── package.json
+└── README.md
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Prérequis
+
+- [Node.js](https://nodejs.org/) (v16 ou plus recommandé)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+
+## Installation
+
+1. **Cloner le dépôt :**
+   ```bash
+   git clone https://github.com/3wa-Binome/Boiseo-Front.git
+   cd boiseo-front--
+
+Installer les dépendances :
+```bash
+npm install
+# ou
+yarn install
+```
+
+2. **Lancer l’application :**
+   ```bash
+   npm start
+   # ou
+   yarn start
+   ```
+
+## Scripts utiles
+- npm run dev : Lance le serveur de développement (Vite).
+- npm run build : Génère la version de production.
+- npm run preview : Prévisualise la build de production localement.
+
+## Configuration
+Les appels API sont définis dans src/api/.
+Le state global (authentification, utilisateur) est géré avec Zustand.
+Les styles sont en SCSS dans src/styles/.
+
+
+## Personnalisation
+Sidebar & Navbar : Responsive, menu hamburger sur mobile.
+Thème : Modifiable dans les fichiers SCSS (_variables.scss).
+Pages : Ajoute ou modifie les pages dans src/components/pages/.
+
+## Dépendances principales
+- React
+- React Router
+- Zustand
+- Vite
+- Sass (SCSS)
+- react-nice-avatar
+
+## Contribution
+Fork le projet
+Crée une branche (git checkout -b feature/ma-feature)
+Commit tes modifications (git commit -am 'Ajout de ma feature')
+Push la branche (git push origin feature/ma-feature)
+Ouvre une Pull Request
+
+## Auteurs
+Projet réalisé par le binôme 3WA, Julien Loiseau et Bastien Raoult
+<hr></hr> N’hésite pas à ouvrir une issue pour toute question ou suggestion !
+
+Ce fichier explique le projet, la structure, l’installation, le lancement, et les points techniques importants. Adapte-le selon tes besoins spécifiques.
+
