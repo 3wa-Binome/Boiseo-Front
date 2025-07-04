@@ -28,7 +28,7 @@ const App = () => {
     }, [checkAuth]);
 
     return (
-        <Router basename="/">
+        <Router basename="/Boiseo-Front/">
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
