@@ -118,7 +118,7 @@
   display: none;
   position: fixed;
   top: 18px;
-  left: 18px;
+  right: 18px;
   z-index: 300;
   width: 36px;
   height: 36px;
@@ -154,8 +154,6 @@
   .hamburger {
     display: flex;
     position: fixed;
-    top: 56px; // hauteur de la navbar mobile
-    left: 18px;
     z-index: 300;
   }
   .sidebar-overlay {

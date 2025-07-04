@@ -5,6 +5,7 @@ import { authStore } from "../../store/authStore.js";
 import { fetchUserById } from "../../api/userApi";
 import { createMaterial } from "../../api/materialApi";
 import { fetchSuppliersByUser, createSupplier } from "../../api/supplierApi";
+import { Link } from "react-router-dom";
 
 function estimateChartWidth(categories) {
     const maxLabelLength = Math.max(...categories.map(category => category.name.length), 0);
@@ -182,7 +183,9 @@ export default function Dashboard() {
                     <ul>
                         {materials.map((m) => (
                             <li key={m.id}>
-                                {m.name}
+                                <Link to={`/materials/${m.id}`} className="material-link">
+                                    {m.name.toLowerCase()}
+                                </Link>
                             </li>
                         ))}
                     </ul>
