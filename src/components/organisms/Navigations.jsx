@@ -12,13 +12,14 @@ const Navigations = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const datas = await fetchUserById(user.id)
+            const datas = await fetchUserById(user.id);
             setData(datas);
             setCategories(datas.categories);
-        }
+        };
 
         fetchData().catch(console.error);
-    }, []);
+    }, [user?.id]);
+
 
     if (!data) {
         return <div>Chargement...</div>;

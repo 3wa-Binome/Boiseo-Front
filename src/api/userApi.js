@@ -66,7 +66,7 @@ export const logoutAPI = async () => {
 
 export const checkAuth = async () => {
         const response = await axios.get(`${API_URL}/auth/me`)
-        console.log(response)
+        console.log("response du server:" , response)
         const user = response.data.data
         return user;
 }

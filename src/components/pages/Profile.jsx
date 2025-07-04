@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { resolvePath, useNavigate } from "react-router-dom";
 import { authStore } from "../../store/authStore.js";
+import { fetchUserById, updateUser } from "../../api/userApi.js";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -8,18 +9,25 @@ export default function Profile() {
     
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    const checkAuth = authStore(state => state.checkAuth)
 
     // Initialiser les valeurs avec les données de l'utilisateur connecté
     useEffect(() => {
-        if (user) {
-            setEmail(user.email || "");
-            setName(user.name || "");
+        const fetchUser = async () => {
+            const response = await fetchUserById(user.id)
+            console.log("response fetchUserById", response)
+            setEmail(response.email)
+            setName(response.name)
         }
+
+        fetchUser()
     }, [user]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         if (!user) {
@@ -28,11 +36,14 @@ export default function Profile() {
         }
 
         try {
-            // Ici, tu pourrais faire un appel API pour mettre à jour le profil
-            // await updateUserProfile(user.id, { email, name });
+            if(password) {
+                await updateUser({ id: user.id, email, name, password, confirmPassword });
+            } else {
+                await updateUser({ id: user.id, email, name });
+            }
             
-            // Pour l'instant, on simule la mise à jour
             setSuccess("Profil mis à jour !");
+            await checkAuth()
             setTimeout(() => setSuccess(""), 2000);
         } catch (err) {
             setError("Erreur lors de la mise à jour");
@@ -40,20 +51,9 @@ export default function Profile() {
         }
     };
 
-    // Rediriger si l'utilisateur n'est pas connecté
-    if (!user) {
-        return (
-            <div className="auth-page">
-                <h2>Accès refusé</h2>
-                <p>Vous devez être connecté pour accéder à votre profil.</p>
-                <button onClick={() => navigate("/login")}>Se connecter</button>
-            </div>
-        );
-    }
-
     return (
         <div className="auth-page">
-            <h2>Mon profil</h2>
+            <h2>Modifier mon profil</h2>
             
             <form onSubmit={handleSubmit}>
                 <input
@@ -70,7 +70,19 @@ export default function Profile() {
                     onChange={e => setName(e.target.value)}
                     required
                 />
-                <button type="submit">Enregistrer</button>
+                <input
+                    type="password"
+                    placeholder="Nouveau mot de passe"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <input
+                    type="confirmPassword"
+                    placeholder="Confirmer le nouveau mot de passe"
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
+                />
+                <button type="submit">Modifier</button>
                 
                 {error && <p className="error">{error}</p>}
                 {success && <p className="success">{success}</p>}

@@ -36,6 +36,7 @@ export const authStore = create((set) => ({
 	checkAuth: async () => {
 		try {
 			const user = await checkAuth()
+			console.log("user dans checkAuth", user)
 			set({ user, isAuthenticated: true, isLoading: false });
 		} catch (error) {
 			set({ user: null, isAuthenticated: false, isLoading: false });
