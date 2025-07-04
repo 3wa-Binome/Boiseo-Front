@@ -8,7 +8,7 @@ export const fetchSuppliersByUser = async (user_id) => {
     try {
         if (user_id) {
             const response = await axios.get(`${API_URL}/suppliers/user/${user_id}`)
-            const suppliers = response.data
+            const suppliers = Array.isArray(response.data) ? response.data : response.data.data
             return suppliers
         } else {
             throw new Error("Erreur lors de la récupération du fournisseur")

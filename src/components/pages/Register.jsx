@@ -1,33 +1,40 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { createUser } from "../../api/userApi";
 
 export default function Register() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const [success, setSuccess] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setSuccess("");
+        if (password !== confirmPassword) {
+            setError("Les mots de passe ne correspondent pas.");
+            return;
+        }
         try {
-            const res = await fetch("/api/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, name, password }),
-            });
-            if (res.ok) {
+            const { ok, data } = await createUser({ email, name, password, confirmPassword });
+            if (ok) {
                 setSuccess("Inscription réussie !");
                 setTimeout(() => navigate("/login"), 1000);
             } else {
-                const data = await res.json();
-                setError(data.message || "Erreur lors de l'inscription");
+                if (data && data.message) {
+                    setError(data.message);
+                } else if (typeof data === "string") {
+                    setError(data);
+                } else {
+                    setError("Erreur inconnue");
+                }
             }
         } catch (err) {
-            setError("Erreur réseau");
+            setError(err.message || "Erreur réseau");
         }
     };
 
@@ -56,10 +63,17 @@ export default function Register() {
                     onChange={e => setPassword(e.target.value)}
                     required
                 />
+                <input
+                    type="password"
+                    placeholder="Confirmer le mot de passe"
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
+                    required
+                />
                 <button type="submit">S'inscrire</button>
-                {error && <p className="error">{error}</p>}
-                {success && <p className="success">{success}</p>}
             </form>
+            {error && <p className="error">{error}</p>}
+            {success && <p className="success">{success}</p>}
             <p style={{ marginTop: "1rem", textAlign: "center" }}>
                 Déjà un compte ?{" "}
                 <Link to="/login" className="register-link">

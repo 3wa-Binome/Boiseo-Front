@@ -21,11 +21,13 @@ export const fetchUserById = async (user_id) => {
 
 export const createUser = async (userInformation) => {
     try {
-        const response = await axios.post(`${API_URL}/users`, userInformation)
-        return response
-    }
-    catch (err) {
-        throw new Error("L'utilisateur existe déjà")
+        const response = await axios.post(`${API_URL}/auth/register`, userInformation);
+        return { ok: true, data: response.data };
+    } catch (err) {
+        if (err.response && err.response.data && err.response.data.message) {
+            return { ok: false, data: { message: err.response.data.message } };
+        }
+        return { ok: false, data: { message: "L'utilisateur existe déjà" } };
     }
 }
 

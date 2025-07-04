@@ -36,11 +36,13 @@ export const fetchMaterialById = async (material_id) => {
 
 export const createMaterial = async (materialInformation) => {
     try {
-        const response = await axios.post(`${API_URL}/materials`, materialInformation)
-        return response
+        const response = await axios.post(`${API_URL}/materials`, materialInformation);
+        console.log("Réponse création matériel :", response.data);
+        return response;
     }
     catch (err) {
-        throw new Error("L'utilisateur existe déjà")
+        console.error("Erreur création matériel :", err.response?.data || err.message);
+        throw new Error("Erreur lors de la création du matériel");
     }
 }
 

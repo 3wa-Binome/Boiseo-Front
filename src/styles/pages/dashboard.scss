@@ -13,64 +13,90 @@ $navbar-height: 64px;
   min-height: calc(100vh - $navbar-height);
 
   h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin: 2rem 0;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 2rem 0 1.5rem 0;
     text-align: center;
+    letter-spacing: 0.5px;
+    color: vars.$primary-color;
   }
 
-  .cards-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    width: 100%;
-    max-width: 1000px;
-    padding: 0 1rem;
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 2rem 0 1rem 0;
+    color: vars.$accent-color;
+    letter-spacing: 0.2px;
+  }
 
-    @media (min-width: 600px) {
-      grid-template-columns: repeat(2, 1fr);
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1.2rem 1.5rem 1rem 1.5rem;
+    margin-bottom: 2rem;
+    align-items: flex-end;
+
+    input, select {
+      padding: 0.7rem 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #f8fafc;
+      transition: border 0.2s;
+      outline: none;
+      min-width: 180px;
+
+      &:focus {
+        border: 1.5px solid vars.$primary-color;
+        background: #fff;
+      }
     }
 
-    .category-card {
-      background-color: vars.$card-bg;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.5rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    button {
+      padding: 0.7rem 1.5rem;
+      background: vars.$primary-color;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 8px rgba(73, 173, 235, 0.08);
 
       &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        background: darken(vars.$primary-color, 7%);
+        box-shadow: 0 4px 16px rgba(73, 173, 235, 0.13);
       }
+    }
+  }
 
-      img {
-        width: 56px;
-        height: 56px;
-        flex-shrink: 0;
-      }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    width: 100%;
+    max-width: 500px;
 
-      .card-text {
-        display: flex;
-        flex-direction: column;
+    li {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      margin-bottom: 0.7rem;
+      padding: 0.9rem 1.2rem;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: box-shadow 0.2s;
 
-        h2 {
-          font-size: 1.125rem;
-          font-weight: 600;
-          margin: 0;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        p {
-          margin: 0;
-          color: #6b7280;
-          font-size: 0.95rem;
-        }
+      &:hover {
+        box-shadow: 0 4px 16px rgba(73, 173, 235, 0.10);
+        background: #f3f8fc;
       }
     }
   }
@@ -78,6 +104,7 @@ $navbar-height: 64px;
   .chart {
     display: flex;
     gap: 10%;
+    margin-bottom: 2rem;
   }
 
   .chart-container {
@@ -85,6 +112,7 @@ $navbar-height: 64px;
     border-radius: 16px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
 
     h2 {
       font-size: 1.125rem;
@@ -94,82 +122,7 @@ $navbar-height: 64px;
   }
 }
 
-.dashboard-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-
-  .stat-card {
-    background-color: vars.$card-bg;
-    border-radius: vars.$card-radius;
-    padding: 1.5rem;
-    box-shadow: vars.$card-shadow;
-    text-align: center;
-    color: vars.$text-color;
-
-    .icon {
-      font-size: 1.8rem;
-      color: vars.$accent-color;
-      margin-bottom: 0.5rem;
-    }
-
-    .value {
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
-
-    .label {
-      font-size: 0.875rem;
-      color: vars.$muted-text;
-    }
-  }
-}
-
-.recent-sales {
-  background-color: vars.$card-bg;
-  border-radius: vars.$card-radius;
-  box-shadow: vars.$card-shadow;
-  overflow-x: auto;
-  padding: 1.5rem;
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem;
-
-    th, td {
-      padding: 0.75rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid vars.$table-border;
-    }
-
-    th {
-      color: vars.$muted-text;
-      font-weight: 600;
-    }
-
-    td.status {
-      color: vars.$success-color;
-      font-weight: bold;
-    }
-
-    td.action {
-      text-align: right;
-
-      .btn-detail {
-        background-color: vars.$primary-color;
-        color: #fff;
-        padding: 0.35rem 0.75rem;
-        font-size: 0.8rem;
-        border-radius: 6px;
-        text-decoration: none;
-      }
-    }
-  }
-}
-
-// Responsive : adapte les marges, paddings et graphiques
+// Responsive
 @media (max-width: 900px) {
   .dashboard-container {
     margin-left: 0;
@@ -196,9 +149,17 @@ $navbar-height: 64px;
       font-size: 1.3rem;
       margin: 1rem 0;
     }
-    .cards-grid {
-      padding: 0;
-      gap: 1rem;
+    h2 {
+      font-size: 1.05rem;
+      margin: 1.2rem 0 0.7rem 0;
+    }
+    form {
+      flex-direction: column;
+      gap: 0.7rem;
+      padding: 0.7rem 0.7rem 0.5rem 0.7rem;
+    }
+    ul {
+      max-width: 100%;
     }
     .chart-container {
       padding: 0.5rem;
