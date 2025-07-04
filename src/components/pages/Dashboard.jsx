@@ -182,7 +182,7 @@ export default function Dashboard() {
                     <ul>
                         {materials.map((m) => (
                             <li key={m.id}>
-                                {m.name} — Quantité: {m.quantity}
+                                {m.name}
                             </li>
                         ))}
                     </ul>
