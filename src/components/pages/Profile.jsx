@@ -1,32 +1,59 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { resolvePath, useNavigate } from "react-router-dom";
+import { authStore } from "../../store/authStore.js";
+import { fetchUserById, updateUser } from "../../api/userApi.js";
 
 export default function Profile() {
     const navigate = useNavigate();
-
-    // Récupération des infos depuis le localStorage (à adapter selon ton backend)
-    const [email, setEmail] = useState(localStorage.getItem("user_email") || "");
-    const [name, setName] = useState(localStorage.getItem("user_name") || "");
+    const user = authStore((state) => state.user);
+    
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    const checkAuth = authStore(state => state.checkAuth)
 
-    const handleSubmit = (e) => {
+    // Initialiser les valeurs avec les données de l'utilisateur connecté
+    useEffect(() => {
+        const fetchUser = async () => {
+            const response = await fetchUserById(user.id)
+            setEmail(response.email)
+            setName(response.name)
+        }
+
+        fetchUser()
+    }, [user]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Ici, tu pourrais faire un appel API pour mettre à jour le profil
+        
+        if (!user) {
+            setError("Utilisateur non connecté");
+            return;
+        }
+
         try {
-            localStorage.setItem("user_email", email);
-            localStorage.setItem("user_name", name);
-            // Le mot de passe ne devrait pas être stocké en clair dans le localStorage !
+            if(password) {
+                await updateUser({ id: user.id, email, name, password, confirmPassword });
+            } else {
+                await updateUser({ id: user.id, email, name });
+            }
+            
             setSuccess("Profil mis à jour !");
+            await checkAuth()
             setTimeout(() => setSuccess(""), 2000);
         } catch (err) {
             setError("Erreur lors de la mise à jour");
+            setTimeout(() => setError(""), 3000);
         }
     };
 
     return (
         <div className="auth-page">
-            <h2>Mon profil</h2>
+            <h2>Modifier mon profil</h2>
+            
             <form onSubmit={handleSubmit}>
                 <input
                     type="email"
@@ -42,8 +69,20 @@ export default function Profile() {
                     onChange={e => setName(e.target.value)}
                     required
                 />
-                <button type="submit">Enregistrer</button>
-                <button type="button" onClick={() => navigate("/logout")}>Se déconnecter</button>
+                <input
+                    type="password"
+                    placeholder="Nouveau mot de passe"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <input
+                    type="confirmPassword"
+                    placeholder="Confirmer le nouveau mot de passe"
+                    value={confirmPassword}
+                    onChange={e => setConfirmPassword(e.target.value)}
+                />
+                <button type="submit">Modifier</button>
+                
                 {error && <p className="error">{error}</p>}
                 {success && <p className="success">{success}</p>}
             </form>

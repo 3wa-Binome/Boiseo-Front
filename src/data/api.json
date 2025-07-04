@@ -1,0 +1,86 @@
+{
+  "users": {
+    "message": "OK",
+    "data": {
+      "id": "user-1",
+      "name": "Jean Dupont",
+      "categories": [
+        { "id": "cat-1", "name": "Catégorie 1", "productsLists": [], "productCount": 0 }
+      ],
+      "materials": [
+        { "id": "mat-1", "name": "Bois", "productsMaterials": [ { "quantity": 4 } ] }
+      ],
+      "suppliers": [],
+      "pictures": []
+    }
+  },
+  "categoriesByUser": {
+    "message": "OK",
+    "data": [
+      {
+        "id": "cat-1",
+        "name": "Catégorie 1",
+        "products": [
+          { "id": "prod-1", "name": "Produit 1", "quantity": 0 }
+        ],
+        "productCount": 1,
+        "productMadeCount": 0
+      }
+    ]
+  },
+  "productsByCategory": {
+    "message": "OK",
+    "data": [
+      {
+        "id": "prod-1",
+        "name": "Produit 1",
+        "quantity": 0,
+        "categoryId": "cat-1",
+        "category": { "id": "cat-1", "name": "Catégorie 1" },
+        "productsMaterials": [
+          {
+            "id": "pm-1",
+            "quantity": 12,
+            "materialId": "mat-1",
+            "material": { "id": "mat-1", "name": "Bois" }
+          }
+        ],
+        "pictures": []
+      }
+    ]
+  },
+  "product": {
+    "message": "OK",
+    "data": {
+      "id": "prod-1",
+      "name": "Produit 1",
+      "quantity": 0,
+      "categoryId": "cat-1",
+      "category": { "id": "cat-1", "name": "Catégorie 1" },
+      "productsMaterials": [],
+      "pictures": []
+    }
+  },
+  "material": {
+    "message": "OK",
+    "data": {
+      "id": "mat-1",
+      "name": "Bois",
+      "supplierId": "sup-1",
+      "supplier": { "id": "sup-1", "name": "Fournisseur Bois" },
+      "productsMaterials": [
+        {
+          "id": "pm-1",
+          "quantity": 6,
+          "productId": "prod-1",
+          "product": {
+            "id": "prod-1",
+            "name": "Produit 1",
+            "categoryId": "cat-1",
+            "category": { "id": "cat-1", "name": "Catégorie 1" }
+          }
+        }
+      ]
+    }
+  }
+}

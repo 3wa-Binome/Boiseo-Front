@@ -1,16 +1,42 @@
 import { Link } from "react-router-dom";
-import products from "../../data/productsData.js";
+import { useState, useEffect } from "react";
+import { authStore } from "../../store/authStore.js";
+import { fetchUserById } from "../../api/userApi.js";
 import Avatar from "react-nice-avatar";
 
-const user = {
-    name: "Bastien",
-    email: "alice@mail.com",
-};
-
 const Navigations = () => {
+    const user = authStore((state) => state.user);
+    const [categories, setCategories] = useState([]);
+    const [data, setData] = useState({});
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const datas = await fetchUserById(user.id);
+            setData(datas);
+            setCategories(datas.categories);
+        };
+        fetchData().catch(console.error);
+    }, [user?.id]);
+
+    if (!data) {
+        return <div>Chargement...</div>;
+    }
+
+    const handleLinkClick = () => setOpen(false);
+
     return (
-        <div>
-            <div className="navigations">
+        <>
+            <button
+                className="hamburger"
+                aria-label="Ouvrir le menu"
+                onClick={() => setOpen(!open)}
+            >
+                <span />
+                <span />
+                <span />
+            </button>
+            <div className={`navigations${open ? " open" : ""}`}>
                 <h1 className="title"># Boiséo</h1>
                 <div className="profile">
                     <Avatar style={{ width: 56, height: 56 }} sex="man" />
@@ -20,19 +46,28 @@ const Navigations = () => {
                     </div>
                 </div>
                 <div className="cards-grid">
-                    {Object.entries(products.categories).map(([key, cat]) => (
-                        <Link to={`/products/${key}`} className="block-link" key={key}>
+                    {Object.entries(categories).map(([key, cat]) => (
+                        <Link
+                            to={`/products/${cat.id}`}
+                            className="block-link"
+                            key={key}
+                            onClick={handleLinkClick}
+                        >
                             <div className="category-card">
                                 <div className="card-text">
-                                    <h2>{cat.title}</h2>
-                                    <p>{cat.quantity} produits</p>
+                                    <h2>{cat.name}</h2>
+                                    <p>{cat.productCount} produits</p>
                                 </div>
                             </div>
                         </Link>
                     ))}
+                    <Link to="/ajouter/categorie/" className="add-btn">
+                        + Nouvelle catégorie
+                    </Link>
                 </div>
             </div>
-        </div>
+            {open && <div className="sidebar-overlay" onClick={() => setOpen(false)} />}
+        </>
     );
 };
 
