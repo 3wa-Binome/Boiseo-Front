@@ -92,6 +92,3 @@ Ouvre une Pull Request
 ## Auteurs
 Projet réalisé par le binôme 3WA, Julien Loiseau et Bastien Raoult
 <hr></hr> N’hésite pas à ouvrir une issue pour toute question ou suggestion !
-
-Ce fichier explique le projet, la structure, l’installation, le lancement, et les points techniques importants. Adapte-le selon tes besoins spécifiques.
-
